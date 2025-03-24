@@ -58,17 +58,15 @@ body {
     position: sticky;
     background-color: var(--accent-color);
     margin: 0;
-    padding: 40px 20px;
+    padding: 30px 20px;
     top: 0;
 }   
 
 #headerTitle
 {
-    position: absolute; /* Make it absolute */
-    bottom: 0; /* Align it at the bottom */
     left: 50%; /* Center horizontally */
     transform: translateX(-50%); /* Adjust for true centering */    
-    padding-bottom: 5px;
+    position: relative;
 }
 
 .subtitle
