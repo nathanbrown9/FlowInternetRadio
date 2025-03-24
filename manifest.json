@@ -1,0 +1,43 @@
+{
+  "name": "FLOW Internet Radio",
+  "short_name": "FLOW",
+  "start_url": "FLOWHP.html",
+  "display": "standalone",
+  "background_color": "#000080",
+  "theme_color": "#555555",
+  "icons": [
+    {
+      "src": "LOGOxs.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "LOGOm.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "LOGOlarge.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "LOGOxl.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "Mobile_Screenshot.png",
+      "sizes": "394x846",
+      "type": "image/png"
+    },
+    {
+      "src": "LargeScreen_Screenshot.png",
+      "sizes": "514x686",
+      "type": "image/png"
+    }
+  ]
+
+}

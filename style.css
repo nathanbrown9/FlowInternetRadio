@@ -1,0 +1,603 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600&display=swap');
+* {
+    font-family: "Poppins", sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+   
+}
+
+:root {
+    /* Colors */
+    --primary-color: rgb(44, 46, 61);
+    --secondary-color: azure;
+    --dark-color: rgb(34, 33, 33);
+    --accent-color: rgb(27, 27, 29);
+    --notif-color: rgb(108, 2, 2);
+
+
+    /* Font Size */
+    --font-size-xs: 0.8rem;
+    --font-size-s: 0.9rem;
+    --font-size-n: 1rem;
+    --font-size-m: 1.12rem;
+    --font-size-l: 1.5rem;
+    --font-size-xl: 2rem;
+    --font-size-xxl: 2.3rem;
+    --font-size-ss: 3.5rem;
+
+    /* Font Weight */
+    --font-weight-s: 100;
+    --font-weight-n: 400;
+    --font-weight-m: 500;
+    --font-weight-sb: 600;
+    --font-weight-b: 700;
+     
+    /* Border Radius */
+    --border-radius-s: 8px;
+    --border-radius-m: 30px;
+    --border-radius-circle: 50%;
+
+    /* Site Max Width */
+    --site-max-width: 1300px;
+}
+body {
+    font-family: 'Poppins', 'sans-serif';
+    font-weight: var(--font-size-n);
+    text-align: center;
+    padding: 20px;
+    background-color: var(--dark-color);
+    color: var(--secondary-color);
+    margin: 0;
+    padding: 0;
+}
+
+.header{
+    width: 100%;
+    background-position: center;
+    position: sticky;
+    background-color: var(--accent-color);
+    margin: 0;
+    padding: 40px 20px;
+    top: 0;
+}   
+
+#headerTitle
+{
+    position: absolute; /* Make it absolute */
+    bottom: 0; /* Align it at the bottom */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust for true centering */    
+    padding-bottom: 5px;
+}
+
+.subtitle
+{
+    padding-top: 10px;
+    color: rgb(187, 187, 187);
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: -110px;
+}
+
+.image img{
+    margin-top: 10rem;
+    width: 100%;
+    border-radius: 10px 10px 0px 0px;
+        object-fit: cover;
+    
+}
+
+.title{
+    text-align: left;
+    padding-left: 17px;
+}
+
+.play-container
+{
+    display: flex;
+    align-items: center; /* Aligns items vertically in the middle */
+}
+
+.fa-volume-high
+{
+    padding-right: 70px;
+    padding-left: 10px;
+    font-size: 17px;
+}
+.fa-volume-low
+{
+    padding-left: 65px;
+    padding-right: 16px;
+    font-size: 17px;
+    
+}
+#playPauseBtn {
+    font-size: 4rem; /* Adjust the size */
+    background: none;
+    border: none;
+    color: var(--secondary-color); /* Change to match your theme */
+    cursor: pointer;
+    transition: color 0.3s ease;
+    width: 100%;
+    padding-right: 25px;
+    padding-top: 40px;
+    padding-bottom: 30px;
+ 
+}
+
+
+#playPauseBtn:hover {
+    color: var(--accent-color); /* Change on hover */
+}
+
+#playPauseBtn i {
+    font-size: 4rem; /* Adjust icon size */
+    color: var(--secondary-color);
+    border-radius: 50%;
+    transition: box-shadow 0.5s ease-in-out, text-shadow 0.3s ease, color 0.3s ease;
+}
+
+/* 🎇 Glow Effect Only When Playing */
+#playPauseBtn.playing i {
+    box-shadow:  0 0 3.25px 3.25px #fff,  /* inner white */
+                 0 0 6.25px 3.25px #f0f, /* middle magenta */
+                 0 0 11.25px 5.625px #0ff; /* outer cyan glow */
+    animation: glowEffect 2.5s infinite alternate ease-in-out;
+}
+
+/* 🔥 Candle-Like Flicker Animation */
+@keyframes glowEffect {
+    0% {
+        box-shadow: 0 0 4px 3px #fff, 
+                    0 0 7px 4px #f0f, 
+                    0 0 12px 6px #0ff;
+    }
+    50% {
+        box-shadow: 0 0 6px 4px #ff0, 
+                    0 0 10px 6px #f90, 
+                    0 0 15px 7px #f00;
+    }
+    100% {
+        box-shadow: 0 0 5px 3px #fff, 
+                    0 0 9px 5px #f0f, 
+                    0 0 13px 6px #0ff;
+    }
+}
+
+/* Hover Effect (Only Changes Color, No Shadow When Paused) */
+#playPauseBtn i:hover {
+    color: var(--secondary-color);
+}
+
+
+
+button {
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: var(--dark-color);
+    border-radius: 10px;
+    color: var(--secondary-color);
+    border: 1px solid;
+    cursor: pointer;
+    width: 95%;
+   
+}
+
+
+
+li, a{
+    text-decoration: none;
+    color: var(--secondary-color);
+    font-size: var(--font-size-n);
+}
+
+.footer{
+    display: flex;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 10px;
+    background-color: var(--accent-color);
+}
+
+.nav_links {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 130px;
+    padding: 0;
+}
+
+.nav_links li {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.nav_links li span {
+    display: flex;
+    flex-direction: column; /* Stack icon above text */
+    align-items: center; /* Center icon and text */
+    cursor: pointer; /* Ensure it looks clickable */
+    transition: color 0.2s; /* Smooth transition effect */
+}
+
+.nav_links i {
+    font-size: 15px;
+    margin-bottom: 5px;
+    transition: color 0.2s ; /* Ensure smooth color transition */
+}
+
+.nav_links a {
+    text-decoration: none;
+    color: inherit; /* Ensures it takes the color from the parent */
+    transition: color 0.2s ;
+    
+}
+
+/* Change both icon and text color on hover */
+.nav_links li span:hover i,
+.nav_links li span:hover a {
+    color: rgb(19, 86, 161);
+  
+}
+
+.sidebar {
+    display: none; /* Hide sidebar by default */
+}
+
+
+/* Ensure responsiveness */
+@media (max-width: 768px) { /* Targets smaller screens */
+    .content {
+        margin-top: -150px; /* Adjust smaller screens */
+    }
+
+    .title h1 {
+        font-size: 1.5rem; /* Adjust title size for smaller screens */
+        text-align: left;
+    }
+
+    
+}
+
+/*--------------Super small screens----------------*/
+@media screen and (max-width: 375px) {
+    /* Adjust the title size */
+    .title h1 {
+        font-size: 1.2rem; /* Reduce title size */
+    }
+
+    .image img
+    {
+        height: 275px;
+    }
+    /* Resize the play button */
+    #playPauseBtn {
+        padding-top: 0px;/* Smaller play button */
+        padding-bottom: 5px;
+    }
+
+    #playPauseBtn i{
+        font-size: 50px;
+    }
+
+    /* Adjust the volume icons */
+    .fa-volume-low,
+    .fa-volume-high {
+        margin-top: 0px;
+        font-size: 1.0rem; /* Reduce volume icon size */
+    }
+
+    /* Make buttons smaller */
+    button {
+        padding: 5px 10px; /* Reduce button padding */
+        font-size: 10px; /* Reduce font size */
+    }
+    
+    .footer{
+        padding: 7px 5px;
+    }
+
+    /* Center elements if necessary */
+    .play-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px; /* Reduce spacing */
+    }
+}
+
+/*----------------Bigger Screens-----------------*/
+@media screen and (min-width: 768px) {
+
+    .fa-volume-low{
+        padding-left: 55px;
+    }
+
+    button{
+        margin-left: 20px;
+    }
+    .subtitle{
+        padding-left: 50px;
+        font-size: var(--font-size-xl);
+    }
+    .sidebar
+    {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 250px;
+        padding: 10px 14px;
+        background: var(--accent-color);
+        font-size: 16px;
+        display: block;
+        z-index: 1000;
+        transition: all 0.2s ease;
+    }
+
+    .sidebar image{
+        min-width: 60px;
+        display: flex;
+        align-items: center;
+    }
+
+    .sidebar li{
+        height: 50px;
+        margin-top: 10px;
+        list-style: none;
+        display: flex;
+        align-items: center; 
+    }
+
+    .sidebar li .fa-radio{
+        min-width: 40px;
+        display: flex;
+        align-items: center; 
+        font-size: 14px;
+        padding-left: 5px;
+
+    }
+    .sidebar li .fa-question-circle{
+        min-width: 40px;
+        display: flex;
+        align-items: center; 
+        font-size: 14px;
+        padding-left: 5px;
+        margin-top: 0;
+
+    }
+    
+    .sidebar li .radio-text
+    {
+        padding-top: 2px;
+        font-size: 15px;
+    }
+
+    .sidebar li a
+    {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        border-radius: 6px;
+        transition: 0.2s ease;
+        width: 100%;
+        cursor: pointer;
+    }
+
+    .sidebar li a:hover
+    {
+        background: var(--primary-color);
+    }
+
+    .sidebar li a .fa-radio,
+    .sidebar li a .radio-text{
+        color: var(--secondary-color);
+        transition: 0.3s ease;
+    }
+    .sidebar header {
+        position: relative;
+    }
+
+    .sidebar header .full-logo
+    {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+    .sidebar .side-image img{
+        width: 40px;
+        border-radius: 6px;
+    }
+
+    header .full-logo .logo-text
+    {
+        padding-left: 7px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .logo-text .name{
+        font-weight: 600;
+    }
+
+    
+    .sidebar header .fa-right-from-bracket
+    {
+        position: absolute;
+        top: 50%;
+        right: -25px;
+        transform: translateY(-50%);
+        height: 25px;
+        width: 25px;
+        background: var(--primary-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        font-size: 12px;
+        cursor: pointer;
+    }
+
+
+
+    .content {
+        margin-left: 65px;
+        transition: all 0.3s ease-in-out;
+        padding: 20px;
+    }
+    
+    .content.full-width {
+        margin-left: 100px;
+    }
+    
+    .helpcontent {
+        margin-left: 250px;
+        transition: all 0.3s ease-in-out;
+        padding: 20px;
+    }
+    
+    .helpcontent.full-width {
+        margin-left: 60px;
+    }
+    
+    
+}
+
+.image img{
+    border-radius: 10px;
+}
+/* When sidebar is collapsed */
+.sidebar.collapsed {
+    width: 70px; /* Make sidebar small */
+}
+
+/* Hide the text inside sidebar when collapsed */
+.sidebar.collapsed .radio-text,
+.sidebar.collapsed .logo-text {
+    display: none;
+}
+
+/* Center icons when sidebar is collapsed */
+.sidebar.collapsed li a {
+    justify-content: center;
+}
+
+/* Keep icons visible */
+.sidebar.collapsed .fa-radio,
+.sidebar.collapsed .fa-question-circle,
+.sidebar.collapsed .side-image img {
+    min-width: 30px;
+    text-align: center;
+}
+
+.sidebar.closed{
+    width: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+
+/*-----------------Help Tab---------------------*/
+hr.solid {
+    border-top: 1px solid;
+    border-color: var(--accent-color);
+    margin-bottom: 15px;
+    padding-top: 10px;
+  }
+
+.helptitle{
+    margin-top: 15px;
+    padding-bottom: 7px;
+}
+
+
+.helpemails {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    gap: 20px; /* Space between items */
+    text-align: left;
+    padding: 15px 15px;
+}
+
+.helpemails a {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Keep icon color same as text */
+    font-size: 24px; /* Adjust icon size */
+    margin-left: auto; /* Push icon to the right */
+    transition: color 0.3s ease; /* Smooth color change on hover */
+}
+
+.helpemails a:hover {
+    color: var(--accent-color); /* Change color on hover */
+}
+
+.help-item {
+    display: flex;
+    align-items: center; /* Keep text and icon on the same line */
+    justify-content: space-between; /* Push icon to the right */
+    width: 100%; /* Ensure full width */
+}
+
+.help-item i {
+    font-size: 24px; /* Adjust to desired size */
+}
+
+.help-item p {
+    margin: 0; /* Remove default margin */
+}
+
+.helpcontent .warning p{
+
+    color: var(--notif-color);
+    font-size: var(--font-size-xs);
+}
+
+
+/*---------------------Install Instruction Popup-------------------------*/
+
+.install-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--accent-color);
+    padding: 20px;
+    border: 1px solid var(--secondary-color);
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    text-align: center;
+    max-width: 300px;
+}
+
+.install-popup h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.install-popup p {
+    font-size: 12px;
+    margin: 5px 0;
+}
+
+.install-popup button {
+    background: #000080;
+    color: var(--secondary-color);
+    border: none;
+    padding: 8px 15px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
