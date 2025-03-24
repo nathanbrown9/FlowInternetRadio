@@ -6,9 +6,9 @@
   "background_color": "#000080",
   "theme_color": "#555555",
   "icons": [
-    {
-      "src": "LOGOxs.png",
-      "sizes": "16x16",
+   {
+      "src": "LOGOs.png",
+      "sizes": "32x32",
       "type": "image/png"
     },
     {
