@@ -110,11 +110,18 @@ body {
 }
 .fa-volume-low
 {
-    padding-left: 65px;
+    padding-left: 63px;
     padding-right: 16px;
     font-size: 17px;
     
 }
+
+.fa-volume-xmark{
+    padding-left: 60px;
+    padding-right: 16px;
+    font-size: 17px;
+}
+
 #playPauseBtn {
     font-size: 4rem; /* Adjust the size */
     background: none;
@@ -474,7 +481,7 @@ li, a{
 }
 
 .image img{
-    border-radius: 10px;
+    border: 2px solid var(--primary-color);
 }
 /* When sidebar is collapsed */
 .sidebar.collapsed {
@@ -599,3 +606,4 @@ hr.solid {
     border-radius: 5px;
     cursor: pointer;
 }
+
