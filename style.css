@@ -481,7 +481,7 @@ li, a{
 }
 
 .image img{
-    border: 2px solid var(--primary-color);
+ 
 }
 /* When sidebar is collapsed */
 .sidebar.collapsed {
