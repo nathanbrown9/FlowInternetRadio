@@ -54,6 +54,19 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const playIcon = "fa-circle-play";
     const pauseIcon = "fa-circle-pause";
+    const muteIcon = "fa-volume-xmark";
+    const lowVolumeIcon = "fa-volume-low";
+
+    // Function to update volume icon
+    function updateVolumeIcon() {
+        if (radioPlayer.volume === 0) {
+            volumeLowBtn.classList.remove(lowVolumeIcon);
+            volumeLowBtn.classList.add(muteIcon);
+        } else {
+            volumeLowBtn.classList.remove(muteIcon);
+            volumeLowBtn.classList.add(lowVolumeIcon);
+        }
+    }
 
     // Play/Pause functionality
     playPauseBtn.addEventListener("click", function() {
@@ -75,6 +88,7 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
             radioPlayer.volume = 0; // Mute if too low
         }
+        updateVolumeIcon();
     });
 
     // Increase volume
@@ -84,7 +98,11 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
             radioPlayer.volume = 1; // Max volume
         }
+        updateVolumeIcon();
     });
+
+    // Ensure the correct icon is displayed when the page loads
+    updateVolumeIcon();
 });
 
 // Reload Stream Function
