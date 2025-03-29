@@ -67,6 +67,7 @@ body {
     left: 50%; /* Center horizontally */
     transform: translateX(-50%); /* Adjust for true centering */    
     position: relative;
+    bottom: -13px;
 }
 
 .subtitle
