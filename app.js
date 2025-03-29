@@ -1,4 +1,3 @@
-//Reload Stream function
 function reloadStream() {
     let player = document.getElementById("radioPlayer");
     let streamUrl = "https://usa14.fastcast4u.com/proxy/flowradio?mp=/1&nocache=" + new Date().getTime();
@@ -45,17 +44,35 @@ function changeTab(tabName) {
 }
 
 
-//Pause Play Function
+//--------------Radio Player Functionalities -------------------
 document.addEventListener("DOMContentLoaded", function() {
     const radioPlayer = document.getElementById("radioPlayer");
     const playPauseBtn = document.getElementById("playPauseBtn");
     const volumeLowBtn = document.querySelector(".fa-volume-low");
     const volumeHighBtn = document.querySelector(".fa-volume-high");
+    const currentTimeDisplay = document.getElementById("currentTimeDisplay");
+    const durationDisplay = document.getElementById("durationDisplay");
+    const volumeSlider = document.getElementById("volumeSlider");
+    const liveProgressBar = document.getElementById("liveProgressBar");
+    const refreshBtn = document.getElementById("refreshStreamBtn"); // Refresh button
 
     const playIcon = "fa-circle-play";
     const pauseIcon = "fa-circle-pause";
     const muteIcon = "fa-volume-xmark";
     const lowVolumeIcon = "fa-volume-low";
+
+    let isPlaying = false;
+    
+    // Ensure the animation is OFF when the page loads
+    liveProgressBar.style.animation = "none";
+
+    // Function to format time in MM:SS
+    function formatTime(seconds) {
+        if (isNaN(seconds) || seconds === Infinity) return "Live"; // Handle live streams
+        let minutes = Math.floor(seconds / 60);
+        let secs = Math.floor(seconds % 60);
+        return `${minutes}:${secs < 10 ? "0" : ""}${secs}`;
+    }
 
     // Function to update volume icon
     function updateVolumeIcon() {
@@ -70,42 +87,72 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Play/Pause functionality
     playPauseBtn.addEventListener("click", function() {
-        if (radioPlayer.paused) {
+        isPlaying = !isPlaying;
+
+        if (isPlaying) {
             radioPlayer.play();
             playPauseBtn.innerHTML = `<i class="fa-solid ${pauseIcon}"></i>`;
             playPauseBtn.classList.add("playing");
+            liveProgressBar.style.animation = "liveProgress 2s infinite linear";
         } else {
             radioPlayer.pause();
             playPauseBtn.innerHTML = `<i class="fa-solid ${playIcon}"></i>`;
             playPauseBtn.classList.remove("playing");
+            liveProgressBar.style.animation = "none"; // Stop animation when paused
         }
     });
 
-    // Decrease volume
+    // Volume controls using buttons
     volumeLowBtn.addEventListener("click", function() {
         if (radioPlayer.volume > 0.1) {
-            radioPlayer.volume -= 0.1; // Decrease volume by 10%
+            radioPlayer.volume -= 0.1; 
         } else {
-            radioPlayer.volume = 0; // Mute if too low
+            radioPlayer.volume = 0;
         }
+        volumeSlider.value = radioPlayer.volume; // Sync slider with volume
         updateVolumeIcon();
     });
 
-    // Increase volume
     volumeHighBtn.addEventListener("click", function() {
         if (radioPlayer.volume < 0.9) {
-            radioPlayer.volume += 0.1; // Increase volume by 10%
+            radioPlayer.volume += 0.1; 
         } else {
-            radioPlayer.volume = 1; // Max volume
+            radioPlayer.volume = 1;
         }
+        volumeSlider.value = radioPlayer.volume; // Sync slider with volume
+        updateVolumeIcon();
+    });
+
+    // Volume slider functionality
+    volumeSlider.addEventListener("input", function() {
+        radioPlayer.volume = volumeSlider.value;
         updateVolumeIcon();
     });
 
     // Ensure the correct icon is displayed when the page loads
     updateVolumeIcon();
+
+    // Update the current time dynamically
+    radioPlayer.addEventListener("timeupdate", function () {
+        currentTimeDisplay.textContent = formatTime(radioPlayer.currentTime);
+    });
+
+    // Set the duration once it's loaded
+    radioPlayer.addEventListener("loadedmetadata", function () {
+        durationDisplay.textContent = formatTime(radioPlayer.duration);
+    });
+
+    // Handle live stream case where duration is not available
+    radioPlayer.addEventListener("durationchange", function () {
+        if (isNaN(radioPlayer.duration)) {
+            durationDisplay.textContent = "Live"; 
+        }
+    });
+
+    // Refresh Stream Functionality
+
 });
 
-// Reload Stream Function
 function reloadStream() {
     const radioPlayer = document.getElementById("radioPlayer");
     const playPauseBtn = document.getElementById("playPauseBtn");
@@ -117,6 +164,11 @@ function reloadStream() {
         radioPlayer.play(); // Play the music after reloading
     }
 }
+
+
+
+
+
 
 //---------------Sidebar Functionality----------------------
 document.addEventListener("DOMContentLoaded", function () {
@@ -234,6 +286,8 @@ if ("serviceWorker" in navigator) {
             });
     });
 }
+
+
 
 
 
