@@ -26,7 +26,7 @@
     <!-- Radio Content -->
     <section id="radioContent" class="content">
         <div class="image">
-            <img src="Image_Cover.jpg" alt="Radio Cover Image">
+            <img src="image_cover.jpg" alt="Radio Cover Image">
         </div>
         
         <div class="radio-container">
@@ -39,11 +39,23 @@
         
                 <div class="play-container">
                     <!-- Custom Play/Pause Button -->
-                    <i class="fa-solid fa-volume-low"></i>
+                    <div class="audio-info">
+                        <span id="currentTimeDisplay">00:00</span>
+                        <div class="live-progress-container">
+                            <div id="liveProgressBar"></div>
+                        </div>
+                        <span id="durationDisplay">Live</span>
+                    </div>
+                
                     <button id="playPauseBtn">
-                        <i class="fa-solid fa-circle-play"></i><br>
+                        <i class="fa-solid fa-circle-play"></i>
                     </button>
-                    <i class="fa-solid fa-volume-high"></i>
+                    
+                    <div class="volume-slider-container">
+                        <i class="fa-solid fa-volume-low"></i>
+                        <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1">
+                        <i class="fa-solid fa-volume-high"></i>
+                    </div>
                 </div>
             <button onclick="reloadStream()">Refresh Stream</button>
         </div>
