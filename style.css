@@ -84,7 +84,7 @@ body {
 }
 
 .image img{
-    margin-top: 10rem;
+    margin-top: 8rem;
     width: 100%;
     border-radius: 10px 10px 0px 0px;
         object-fit: cover;
@@ -100,48 +100,105 @@ body {
 {
     display: flex;
     align-items: center; /* Aligns items vertically in the middle */
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    gap: 1.1rem;
 }
 
-.fa-volume-high
-{
-    padding-right: 70px;
-    padding-left: 10px;
-    font-size: 17px;
+.volume-slider-container {
+    display: flex;
+    align-items: center;  /* Centers items vertically */
+    justify-content: center;  /* Centers the group */
+    gap: 10px; /* Adds spacing between elements */
+    width: 100%;
+    padding-top: 1.1rem;
+    padding-bottom: 15px;
+  
 }
-.fa-volume-low
-{
-    padding-left: 65px;
-    padding-right: 16px;
-    font-size: 17px;
+
+#volumeSlider {
+    width: 70%; /* Adjust slider width */
+    cursor: pointer;
+    accent-color: var(--primary-color); /* Customize slider color */
+   
+}
+
+.volume-slider-container i {
+    font-size: 20px; /* Adjusts icon size */
+    cursor: pointer;
     
 }
 
-.fa-volume-xmark{
-    padding-left: 59.5px;
-    padding-right: 16px;
-    font-size: 17px;
+.audio-info {
+    display: flex;
+    align-items: center;
+    width: 90%;
+    margin-top: 15px;
 }
 
+
+#currentTimeDisplay,
+#durationDisplay {
+    padding: 0 8px; /* Add horizontal padding */
+}
+.live-progress-container {
+    flex-grow: 1;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.2); /* Light background */
+    overflow: hidden;
+    position: relative;
+    border-radius: 3px;
+   
+}
+
+#liveProgressBar {
+    width: 90%; /* Width of moving segment */
+    height: 100%;
+    background: var(--primary-color); /* Your theme color */
+    animation: liveProgress 2s infinite linear;
+    border-radius: 3px;
+     
+}
+
+/* Animated shimmer effect */
+@keyframes liveProgress {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+
 #playPauseBtn {
+     /* Override the generic button styles: */
+     padding: 0 !important;
+     margin: 0 !important;
+     width: auto !important;
+     border: none !important;
+     background: none !important;
+     line-height: 1; 
+
     font-size: 4rem; /* Adjust the size */
     background: none;
     border: none;
     color: var(--secondary-color); /* Change to match your theme */
     cursor: pointer;
     transition: color 0.3s ease;
-    width: 100%;
-    padding-right: 25px;
-    padding-top: 40px;
-    padding-bottom: 30px;
- 
+  
+    
 }
 
 
 #playPauseBtn:hover {
     color: var(--accent-color); /* Change on hover */
+    display: inline-block;
 }
 
 #playPauseBtn i {
+    
     font-size: 4rem; /* Adjust icon size */
     color: var(--secondary-color);
     border-radius: 50%;
@@ -182,6 +239,7 @@ body {
 
 
 
+
 button {
     padding: 10px 20px;
     font-size: 14px;
@@ -192,6 +250,10 @@ button {
     cursor: pointer;
     width: 95%;
    
+}
+
+button[onclick="reloadStream()"] {
+    margin-top: 1rem; /* Adjust as needed */
 }
 
 
@@ -261,19 +323,8 @@ li, a{
 }
 
 
-/* Ensure responsiveness */
-@media (max-width: 768px) { /* Targets smaller screens */
-    .content {
-        margin-top: -150px; /* Adjust smaller screens */
-    }
+/*-----------------Media Queries-----------------*/
 
-    .title h1 {
-        font-size: 1.5rem; /* Adjust title size for smaller screens */
-        text-align: left;
-    }
-
-    
-}
 
 /*--------------Super small screens----------------*/
 @media screen and (max-width: 375px) {
@@ -322,16 +373,43 @@ li, a{
     }
 }
 
+/*----------------Small Screen Lengths------------------*/
+@media (max-height: 739px) { /* For shorter screens */
+    #radioContent {
+        transform: translateY(-15px); /* Moves the section 50px up */
+    }
+
+    button[onclick="reloadStream()"] {
+        margin-top: 0rem; /* Adjust as needed */
+    }
+
+    #playPauseBtn{
+        line-height: 0;
+    }
+
+    .play-container{
+        gap: 0;
+    }
+
+    .volume-slider-container{
+        padding-top: 0.5rem; /* Reduce padding for shorter screens */
+    }
+
+}
+
+
+
 /*----------------Bigger Screens-----------------*/
 @media screen and (min-width: 768px) {
-
-    .fa-volume-low{
-        padding-left: 55px;
-    }
 
     button{
         margin-left: 20px;
     }
+    
+    button[onclick="reloadStream()"] {
+        margin-top: 3rem; /* Adjust as needed */
+    }
+    
     .subtitle{
         padding-left: 50px;
         font-size: var(--font-size-xl);
@@ -480,9 +558,6 @@ li, a{
     
 }
 
-.image img{
- 
-}
 /* When sidebar is collapsed */
 .sidebar.collapsed {
     width: 70px; /* Make sidebar small */
