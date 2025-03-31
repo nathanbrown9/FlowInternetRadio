@@ -121,7 +121,7 @@ body {
 #volumeSlider {
     width: 70%; /* Adjust slider width */
     cursor: pointer;
-    accent-color: var(--secondary-color); /* Customize slider color */
+    accent-color: rgb(58, 58, 235); /* Customize slider color */
    
 }
 
@@ -274,7 +274,7 @@ li, a{
     bottom: 0;
     justify-content: center;
     align-items: center;
-    padding: 20px 10px;
+    padding: 15px 10px;
     background-color: var(--accent-color);
 }
 
@@ -390,7 +390,7 @@ li, a{
     }
 
     .play-container{
-        gap: 0;
+        gap: 10px;
     }
 
     .volume-slider-container{
