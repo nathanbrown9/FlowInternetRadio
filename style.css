@@ -12,7 +12,7 @@
     --primary-color: rgb(44, 46, 61);
     --secondary-color: azure;
     --dark-color: rgb(34, 33, 33);
-    --accent-color: rgb(27, 27, 29);
+    --accent-color: #1b1b1d;
     --notif-color: rgb(108, 2, 2);
 
 
@@ -58,7 +58,7 @@ body {
     position: sticky;
     background-color: var(--accent-color);
     margin: 0;
-    padding: 10px 20px;
+    padding: 15px 20px;
     top: 0;
 }   
 
@@ -121,7 +121,7 @@ body {
 #volumeSlider {
     width: 70%; /* Adjust slider width */
     cursor: pointer;
-    accent-color: var(--primary-color); /* Customize slider color */
+    accent-color: var(--secondary-color); /* Customize slider color */
    
 }
 
@@ -134,8 +134,9 @@ body {
 .audio-info {
     display: flex;
     align-items: center;
-    width: 90%;
+    width: 100%;
     margin-top: 15px;
+    padding-left: 25%;
 }
 
 
@@ -402,6 +403,10 @@ li, a{
 
 /*----------------Bigger Screens-----------------*/
 @media screen and (min-width: 768px) {
+
+    .audio-info{
+        padding-left: 38%;
+    }
 
     button{
         margin-left: 20px;
@@ -682,4 +687,3 @@ hr.solid {
     border-radius: 5px;
     cursor: pointer;
 }
-
