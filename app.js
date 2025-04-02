@@ -1,6 +1,6 @@
 //-----------------Reload Stream function-------------------
 document.addEventListener("DOMContentLoaded", function () {
-    const refreshButton = document.querySelector(".refreshStream i");
+    const refreshButton = document.querySelector(".refresh i");
 
     refreshButton.addEventListener("click", function () {
         reloadStream();
@@ -110,7 +110,7 @@ function reloadStream() {
 
 //---------------Share Functionaity------------------
 document.addEventListener("DOMContentLoaded", function () {
-    const shareButton = document.querySelector(".shareButton");
+    const shareButton = document.querySelector(".share");
 
     shareButton.addEventListener("click", function () {
         const shareData = {
