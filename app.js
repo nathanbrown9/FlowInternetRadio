@@ -1,13 +1,21 @@
-//Reload Stream function
+//-----------------Reload Stream function-------------------
+document.addEventListener("DOMContentLoaded", function () {
+    const refreshButton = document.querySelector(".refreshStream i");
+
+    refreshButton.addEventListener("click", function () {
+        reloadStream();
+    });
+});
+
 function reloadStream() {
     let player = document.getElementById("radioPlayer");
     let streamUrl = "https://usa14.fastcast4u.com/proxy/flowradio?mp=/1&nocache={Now}" + new Date().getTime();
-    
+
     player.src = streamUrl;
     player.load();
-    player.play();
+    player.play().catch(error => console.error("Playback error:", error));
 }
-
+//--------------Service Worker Registration------------------
 if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("service-worker.js")
         .then(() => console.log("Service Worker Registered"));
@@ -19,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
     changeTab(savedTab);
 });
 
-//Changing Tab Function
+//----------------Changing Tab Function----------------
 function changeTab(tabName) {
     // Update header title
     document.getElementById("headerTitle").textContent = tabName;
@@ -48,15 +56,10 @@ function changeTab(tabName) {
 document.addEventListener("DOMContentLoaded", function () {
     const radioPlayer = document.getElementById("radioPlayer");
     const playPauseBtn = document.getElementById("playPauseBtn");
-    const volumeSlider = document.getElementById("volumeSlider");
-    const volumeLowBtn = document.querySelector(".fa-volume-low");
-    const volumeHighBtn = document.querySelector(".fa-volume-high");
     const currentTimeDisplay = document.getElementById("currentTimeDisplay");
 
     const playIcon = "fa-circle-play";
     const pauseIcon = "fa-circle-pause";
-    const muteIcon = "fa-volume-xmark";
-    const lowVolumeIcon = "fa-volume-low";
 
     let isPlaying = false;
 
@@ -81,32 +84,6 @@ document.addEventListener("DOMContentLoaded", function () {
         playPauseBtn.classList.remove("playing"); // ✅ Remove glow effect class
     });
 
-    // Volume Controls
-    volumeSlider.addEventListener("input", function () {
-        radioPlayer.volume = volumeSlider.value;
-        updateVolumeIcon();
-    });
-
-    volumeLowBtn.addEventListener("click", function () {
-        radioPlayer.volume = Math.max(0, radioPlayer.volume - 0.1);
-        volumeSlider.value = radioPlayer.volume;
-        updateVolumeIcon();
-    });
-
-    volumeHighBtn.addEventListener("click", function () {
-        radioPlayer.volume = Math.min(1, radioPlayer.volume + 0.1);
-        volumeSlider.value = radioPlayer.volume;
-        updateVolumeIcon();
-    });
-
-    function updateVolumeIcon() {
-        if (radioPlayer.volume === 0) {
-            volumeLowBtn.classList.replace(lowVolumeIcon, muteIcon);
-        } else {
-            volumeLowBtn.classList.replace(muteIcon, lowVolumeIcon);
-        }
-    }
-
     // Time Update Functionality
     radioPlayer.addEventListener("timeupdate", function () {
         currentTimeDisplay.textContent = formatTime(radioPlayer.currentTime);
@@ -119,18 +96,121 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-
+// Reload Stream Function
 function reloadStream() {
     const radioPlayer = document.getElementById("radioPlayer");
-    const playPauseBtn = document.getElementById("playPauseBtn");
 
-    // Check if the music is playing (i.e., the playPauseBtn is in playing state)
-    if (!radioPlayer.paused) {
-        // If music is playing, reload the stream
-        radioPlayer.load();
-        radioPlayer.play(); // Play the music after reloading
+    // Reload the stream while keeping play state
+    let isPlaying = !radioPlayer.paused;
+    radioPlayer.load();
+    if (isPlaying) {
+        radioPlayer.play().catch(error => console.error("Playback error:", error));
     }
 }
+
+//---------------Share Functionaity------------------
+document.addEventListener("DOMContentLoaded", function () {
+    const shareButton = document.querySelector(".shareButton");
+
+    shareButton.addEventListener("click", function () {
+        const shareData = {
+            title: "FLOW Internet Radio",
+            text: "Check out FLOW Internet Radio! 🎵",
+            url: window.location.href
+        };
+
+        // Check if Web Share API is available
+        if (navigator.share) {
+            navigator.share(shareData)
+                .then(() => console.log("Shared successfully"))
+                .catch(error => console.error("Error sharing:", error));
+        } else {
+            showFallbackShareModal(shareData.url);
+        }
+    });
+
+    function showFallbackShareModal(url) {
+        // Create the share modal
+        const modal = document.createElement("div");
+        modal.classList.add("share-modal");
+        modal.innerHTML = `
+            <div class="share-popup">
+                <h2>Share FLOW Internet Radio</h2>
+                <p>Share this link with your friends:</p>
+                <input type="text" value="${url}" readonly id="shareLink">
+                <button onclick="copyToClipboard()">Copy Link</button>
+                <div class="share-icons">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}" target="_blank">
+                        <i class="fa-brands fa-facebook"></i>
+                    </a>
+                    <a href="https://api.whatsapp.com/send?text=${encodeURIComponent(url)}" target="_blank">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                    <a href="mailto:?subject=Check%20this%20out!&body=${encodeURIComponent(url)}">
+                        <i class="fa-solid fa-envelope"></i>
+                    </a>
+                </div>
+                <button class="closeModal">Close</button>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+
+        // Close modal event
+        document.querySelector(".closeModal").addEventListener("click", function () {
+            modal.remove();
+        });
+    }
+});
+
+// Function to copy link to clipboard
+function copyToClipboard() {
+    const shareLink = document.getElementById("shareLink");
+    shareLink.select();
+    document.execCommand("copy");
+    alert("Link copied to clipboard!");
+}
+
+
+//-----------------Ad Slider Functionality------------------
+document.addEventListener("DOMContentLoaded", function () {
+    const ads = document.querySelectorAll(".ad-item");
+    const prevAdBtn = document.querySelector(".prev-ad");
+    const nextAdBtn = document.querySelector(".next-ad");
+    
+    let currentIndex = 0;
+    let autoSlide = setInterval(nextAd, 9000); // Auto-change every 10 seconds
+
+    function showAd(index) {
+        ads.forEach((ad, i) => {
+            ad.classList.toggle("active", i === index);
+        });
+    }
+
+    function nextAd() {
+        currentIndex = (currentIndex + 1) % ads.length;
+        showAd(currentIndex);
+    }
+
+    function prevAd() {
+        currentIndex = (currentIndex - 1 + ads.length) % ads.length;
+        showAd(currentIndex);
+    }
+
+    prevAdBtn.addEventListener("click", function () {
+        clearInterval(autoSlide);
+        prevAd();
+        autoSlide = setInterval(nextAd, 8000); // Reset timer
+    });
+
+    nextAdBtn.addEventListener("click", function () {
+        clearInterval(autoSlide);
+        nextAd();
+        autoSlide = setInterval(nextAd, 8000); // Reset timer
+    });
+
+    showAd(currentIndex);
+});
 
 
 
@@ -253,19 +333,6 @@ if ("serviceWorker" in navigator) {
             });
     });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
