@@ -14,6 +14,7 @@
     --dark-color: rgb(34, 33, 33);
     --accent-color: #1b1b1d;
     --notif-color: rgb(108, 2, 2);
+    --splash-color: rgb(4,53,98);
 
 
     /* Font Size */
@@ -100,79 +101,81 @@ body {
 .play-container
 {
     display: flex;
-    align-items: center; /* Aligns items vertically in the middle */
     flex-direction: column;
+    align-items: center; /* Aligns items vertically in the middle */
     justify-content: center;
     width: 100%;
-    gap: 1.1rem;
+    gap: 1rem;
 }
 
-.volume-slider-container {
+.refreshStream{
     display: flex;
-    align-items: center;  /* Centers items vertically */
-    justify-content: center;  /* Centers the group */
-    gap: 10px; /* Adds spacing between elements */
-    width: 100%;
-    padding-top: 1.1rem;
-    padding-bottom: 15px;
-  
+    flex-direction: column; /* Stack volume elements vertically */
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 5px;
+    font-size: 1.5rem;
+    margin-top: 80px;
+    margin-left: 3.3em;
 }
 
-#volumeSlider {
-    width: 70%; /* Adjust slider width */
-    cursor: pointer;
-    accent-color: rgb(58, 58, 235); /* Customize slider color */
+.refreshStream i{
+    cursor: pointer; /* Make it clickable */
+    color: var(--secondary-color);
+    transition: color 0.3s ease;
+}
+
+.shareButton{
+    display: flex;
+    flex-direction: column; /* Stack volume elements vertically */
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 5px;
+    font-size: 1.5rem;
+    margin-top: 80px;
+    margin-right: 2.7em;
    
 }
-
-.volume-slider-container i {
-    font-size: 20px; /* Adjusts icon size */
-    cursor: pointer;
-    
+.share-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.share-popup {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.share-icons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.share-icons a {
+    font-size: 24px;
+    color: #333;
+    text-decoration: none;
+}
+
 
 .audio-info {
-    display: flex;
-    align-items: center;
-    width: 100%;
     margin-top: 15px;
-    padding-left: 25%;
-}
 
-
-#currentTimeDisplay,
-#durationDisplay {
-    padding: 0 8px; /* Add horizontal padding */
 }
-.live-progress-container {
-    flex-grow: 1;
-    height: 5px;
-    background: rgba(255, 255, 255, 0.2); /* Light background */
-    overflow: hidden;
-    position: relative;
-    border-radius: 3px;
-   
-}
-
-#liveProgressBar {
-    width: 90%; /* Width of moving segment */
-    height: 100%;
-    background: var(--primary-color); /* Your theme color */
-    animation: liveProgress 2s infinite linear;
-    border-radius: 3px;
-     
-}
-
-/* Animated shimmer effect */
-@keyframes liveProgress {
-    0% {
-        transform: translateX(-100%);
-    }
-    100% {
-        transform: translateX(100%);
-    }
-}
-
 
 #playPauseBtn {
      /* Override the generic button styles: */
@@ -182,11 +185,8 @@ body {
      border: none !important;
      background: none !important;
      line-height: 1; 
-
-    font-size: 4rem; /* Adjust the size */
     background: none;
     border: none;
-    color: var(--secondary-color); /* Change to match your theme */
     cursor: pointer;
     transition: color 0.3s ease;
   
@@ -201,7 +201,7 @@ body {
 
 #playPauseBtn i {
     
-    font-size: 4rem; /* Adjust icon size */
+    font-size: 2rem; /* Adjust icon size */
     color: var(--secondary-color);
     border-radius: 50%;
     transition: box-shadow 0.5s ease-in-out, text-shadow 0.3s ease, color 0.3s ease;
@@ -239,23 +239,76 @@ body {
     color: var(--secondary-color);
 }
 
-
-
-
-button {
-    padding: 10px 20px;
-    font-size: 14px;
-    background-color: var(--dark-color);
+.ad-slideshow {
+    position: relative;
+    max-width: 90%;
+    margin: 30px auto;
+    background: var(--splash-color);
     border-radius: 10px;
-    color: var(--secondary-color);
-    border: 1px solid;
-    cursor: pointer;
-    width: 95%;
-   
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    text-align: center;
 }
 
-button[onclick="reloadStream()"] {
-    margin-top: 1rem; /* Adjust as needed */
+.ad-container {
+    position: relative;
+}
+
+.ad-item {
+    display: none;
+    animation: fade 1s ease-in-out;
+}
+
+.ad-item h2{
+    font-size: 15px;
+}
+
+.ad-item p{
+    font-size: 11px
+}
+
+.ad-item.active {
+    display: block;
+}
+
+@keyframes fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* 🔹 FIXED: Prevent duplicate overlapping arrows */
+.prev-ad, .next-ad {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    padding: 2px 10px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 5px;
+    z-index: 100; /* Ensures arrows are on top */
+}
+
+.prev-ad { left: -30px; }
+.next-ad { 
+    right: -30px;
+   
+ }
+
+.zoom-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-weight: bold;
+    color: #0073e6;
+    margin-top: 10px;
+}
+
+.zoom-link i {
+    margin-right: 5px;
 }
 
 
@@ -274,7 +327,7 @@ li, a{
     bottom: 0;
     justify-content: center;
     align-items: center;
-    padding: 15px 10px;
+    padding: 18px 10px;
     background-color: var(--accent-color);
 }
 
@@ -328,94 +381,63 @@ li, a{
 /*-----------------Media Queries-----------------*/
 
 
-/*--------------Super small screens----------------*/
-@media screen and (max-width: 375px) {
-    /* Adjust the title size */
-    .title h1 {
-        font-size: 1.2rem; /* Reduce title size */
-    }
-
-    .image img
-    {
-        height: 275px;
-    }
-    /* Resize the play button */
-    #playPauseBtn {
-        padding-top: 0px;/* Smaller play button */
-        padding-bottom: 5px;
-    }
-
-    #playPauseBtn i{
-        font-size: 50px;
-    }
-
-    /* Adjust the volume icons */
-    .fa-volume-low,
-    .fa-volume-high {
-        margin-top: 0px;
-        font-size: 1.0rem; /* Reduce volume icon size */
-    }
-
-    /* Make buttons smaller */
-    button {
-        padding: 5px 10px; /* Reduce button padding */
-        font-size: 10px; /* Reduce font size */
-    }
-    
-    .footer{
-        padding: 7px 5px;
-    }
-
-    /* Center elements if necessary */
-    .play-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 10px; /* Reduce spacing */
-    }
-}
-
-/*----------------Small Screen Lengths------------------*/
-@media (max-height: 739px) { /* For shorter screens */
+/*--------------Small screens----------------*/
+@media (max-height: 740px) { /* For shorter screens */
     #radioContent {
         transform: translateY(-15px); /* Moves the section 50px up */
     }
+    
+    .play-container{
+        transform: translateY(-20px);
+        gap: 10px;
+    }
+    .title h1{
+        font-size: var(--font-size-m);
+    }
 
-    button[onclick="reloadStream()"] {
-        margin-top: 0rem; /* Adjust as needed */
+    .audio-info{
+        margin-top: 18px;
+        margin-bottom: 0px;
+    }
+
+    #currentTimeDisplay{
+        font-size: var(--font-size-xs);
+    }
+
+    .refreshStream i{
+        font-size: 1.3rem; /* Reduce icon size for shorter screens */
     }
 
     #playPauseBtn{
         line-height: 0;
     }
-
-    .play-container{
-        gap: 10px;
+    
+     #playPauseBtn i {
+            font-size: 3rem; /* Adjust icon size for shorter screens */
     }
 
-    .volume-slider-container{
-        padding-top: 0.5rem; /* Reduce padding for shorter screens */
+    .shareButton{
+        margin-right: 80px;
     }
+    .shareButton i{
+        font-size: 1rem; /* Reduce icon size for shorter screens */
+    }
+
+    .ad-slideshow{
+        margin: 9px auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        padding: 10px;
+        text-align: center;
+    }
+
 
 }
 
 
 
 /*----------------Bigger Screens-----------------*/
-@media screen and (min-width: 768px) {
-
-    .audio-info{
-        padding-left: 38%;
-    }
-
-    button{
-        margin-left: 20px;
-    }
-    
-    button[onclick="reloadStream()"] {
-        margin-top: 3rem; /* Adjust as needed */
-    }
-    
+@media screen and (min-width: 768px) {    
     .subtitle{
         padding-left: 50px;
         font-size: var(--font-size-xl);
@@ -687,3 +709,24 @@ hr.solid {
     border-radius: 5px;
     cursor: pointer;
 }
+
+
+/* NEVILLE'S MESS */
+/* Container for the layout */
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    /*padding: 2px;*/
+}
+
+/* Each column 
+.column {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 10px;
+    flex: 1 1 calc(33.33% - 20px); /* Default for 3 columns * 
+    box-sizing: border-box;
+}*/
