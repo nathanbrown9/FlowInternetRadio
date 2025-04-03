@@ -1,4 +1,4 @@
-//-----------------Reload Stream function-------------------
+//-----------------Reload Stream function------------------
 document.addEventListener("DOMContentLoaded", function () {
     const refreshButton = document.querySelector(".refresh i");
 
