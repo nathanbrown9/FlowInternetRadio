@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 //----------------Changing Tab Function----------------
-/*function changeTab(tabName) {
+function changeTab(tabName) {
     // Update header title
     document.getElementById("headerTitle").textContent = tabName;
 
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Save selected tab in localStorage
     localStorage.setItem("selectedTab", tabName);
 }
-*/
+
 //---------------- Radio Player Functionality --------------------
 document.addEventListener("DOMContentLoaded", function () {
     const radioPlayer = document.getElementById("radioPlayer");
@@ -175,44 +175,16 @@ function copyToClipboard() {
 //-----------------Ad Slider Functionality------------------
 document.addEventListener("DOMContentLoaded", function () {
     const ads = document.querySelectorAll(".ad-item");
-    const adContainer = document.querySelector(".ad-container");
-    const copyBtn = document.querySelector(".copy-ad");
-    const dotsContainer = document.querySelector(".ad-pagination");
-
+    const prevAdBtn = document.querySelector(".prev-ad");
+    const nextAdBtn = document.querySelector(".next-ad");
+    
     let currentIndex = 0;
-    let startX = 0;
-    let endX = 0;
-    let autoSlide = setInterval(nextAd, 10000); // Auto-change every 10 seconds
-
-    // Clear dots before creating new ones (fix duplicate dots issue)
-    dotsContainer.innerHTML = "";
-
-    // Create pagination dots dynamically
-    ads.forEach((_, index) => {
-        const dot = document.createElement("span");
-        dot.classList.add("ad-dot");
-        if (index === 0) dot.classList.add("active"); // Ensure only the first one is active initially
-        dot.addEventListener("click", () => {
-            clearInterval(autoSlide);
-            showAd(index);
-            autoSlide = setInterval(nextAd, 10000); // Reset timer
-        });
-        dotsContainer.appendChild(dot);
-    });
-
-    const dots = document.querySelectorAll(".ad-dot");
+    let autoSlide = setInterval(nextAd, 9000); // Auto-change every 10 seconds
 
     function showAd(index) {
         ads.forEach((ad, i) => {
             ad.classList.toggle("active", i === index);
         });
-
-        // Ensure only one dot is active
-        dots.forEach((dot, i) => {
-            dot.classList.toggle("active", i === index);
-        });
-
-        currentIndex = index;
     }
 
     function nextAd() {
@@ -225,54 +197,20 @@ document.addEventListener("DOMContentLoaded", function () {
         showAd(currentIndex);
     }
 
-    // Swipe Functionality
-    adContainer.addEventListener("touchstart", (e) => {
-        startX = e.touches[0].clientX;
+    prevAdBtn.addEventListener("click", function () {
+        clearInterval(autoSlide);
+        prevAd();
+        autoSlide = setInterval(nextAd, 8000); // Reset timer
     });
 
-    adContainer.addEventListener("touchend", (e) => {
-        endX = e.changedTouches[0].clientX;
-        if (startX - endX > 50) {
-            clearInterval(autoSlide);
-            nextAd(); // Swipe Left → Next Ad
-            autoSlide = setInterval(nextAd, 10000);
-        } else if (endX - startX > 50) {
-            clearInterval(autoSlide);
-            prevAd(); // Swipe Right → Previous Ad
-            autoSlide = setInterval(nextAd, 10000);
-        }
-    });
-
-    // Copy ad content functionality (with link recognition)
-    copyBtn.addEventListener("click", function () {
-        const activeAd = document.querySelector(".ad-item.active");
-
-        if (!activeAd) return;
-
-        // Create a temporary container to hold HTML content
-        const tempElement = document.createElement("div");
-        tempElement.innerHTML = activeAd.innerHTML;
-
-        // Remove the copy button itself from the copied content
-        const buttonToRemove = tempElement.querySelector(".copy-ad");
-        if (buttonToRemove) {
-            buttonToRemove.remove();
-        }
-
-        // Use Clipboard API to copy HTML content while preserving links
-        if (navigator.clipboard) {
-            navigator.clipboard.writeText(tempElement.innerText).then(() => {
-                alert("Ad content copied!");
-            }).catch(err => {
-                console.error("Failed to copy:", err);
-            });
-        }
+    nextAdBtn.addEventListener("click", function () {
+        clearInterval(autoSlide);
+        nextAd();
+        autoSlide = setInterval(nextAd, 8000); // Reset timer
     });
 
     showAd(currentIndex);
 });
-
-
 
 
 
