@@ -14,7 +14,7 @@
     --dark-color: rgb(34, 33, 33);
     --accent-color: #1b1b1d;
     --notif-color: rgb(108, 2, 2);
-    --splash-color: rgb(12, 72, 128);
+    --splash-color: rgb(4,53,98);
 
 
     /* Font Size */
@@ -260,39 +260,15 @@ body {
 }
 
 .ad-item h2{
-    font-size: 1.1rem;
+    font-size: 15px;
 }
 
 .ad-item p{
-    font-size: 0.9rem;
+    font-size: 11px
 }
 
 .ad-item.active {
     display: block;
-}
-/* Positioning the dots at the bottom center */
-.ad-pagination {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 8px;
-    margin-top: 9px;
-}
-
-/* Style the dots */
-.ad-dot {
-    width: 5px;
-    height: 5px;
-    background-color: #333;
-    border-radius: 50%;
-    transition: background-color 0.3s;
-    cursor: pointer;
-}
-
-/* Highlight the active dot */
-.ad-dot.active {
-    background-color: #ccc;
 }
 
 @keyframes fade {
@@ -300,6 +276,26 @@ body {
     to { opacity: 1; }
 }
 
+/* 🔹 FIXED: Prevent duplicate overlapping arrows */
+.prev-ad, .next-ad {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    padding: 2px 10px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 5px;
+    z-index: 100; /* Ensures arrows are on top */
+}
+
+.prev-ad { left: -30px; }
+.next-ad { 
+    right: -30px;
+   
+ }
 
 .zoom-link {
     display: flex;
@@ -307,18 +303,13 @@ body {
     justify-content: center;
     text-decoration: none;
     font-weight: bold;
-    color: #d60a0a;
+    color: #0073e6;
     margin-top: 10px;
 }
 
 .zoom-link i {
     margin-right: 5px;
 }
-
-
-
-
-
 
 
 
@@ -392,17 +383,54 @@ li, a{
 
 /*--------------Small screens----------------*/
 @media (max-height: 740px) { /* For shorter screens */
-  
-    .ad-slideshow {
-        transform: translateY(-15px);
-    }
-    .ad-item h2{
-        font-size: 0.9rem;
+    #radioContent {
+        transform: translateY(-15px); /* Moves the section 50px up */
     }
     
-    .ad-item p{
-        font-size: 0.7rem;
+    .play-container{
+        transform: translateY(-20px);
+        gap: 10px;
     }
+    .title h1{
+        font-size: var(--font-size-m);
+    }
+
+    .audio-info{
+        margin-top: 18px;
+        margin-bottom: 0px;
+    }
+
+    #currentTimeDisplay{
+        font-size: var(--font-size-xs);
+    }
+
+    .refreshStream i{
+        font-size: 1.3rem; /* Reduce icon size for shorter screens */
+    }
+
+    #playPauseBtn{
+        line-height: 0;
+    }
+    
+     #playPauseBtn i {
+            font-size: 3rem; /* Adjust icon size for shorter screens */
+    }
+
+    .shareButton{
+        margin-right: 80px;
+    }
+    .shareButton i{
+        font-size: 1rem; /* Reduce icon size for shorter screens */
+    }
+
+    .ad-slideshow{
+        margin: 9px auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        padding: 10px;
+        text-align: center;
+    }
+
 
 }
 
@@ -410,7 +438,7 @@ li, a{
 
 /*----------------Bigger Screens-----------------*/
 @media screen and (min-width: 768px) {    
-    /*.subtitle{
+    .subtitle{
         padding-left: 50px;
         font-size: var(--font-size-xl);
     }
@@ -531,12 +559,12 @@ li, a{
         border-radius: 50%;
         font-size: 12px;
         cursor: pointer;
-    }*/
+    }
 
 
 
     .content {
-        margin-left: 10px;
+        margin-left: 65px;
         transition: all 0.3s ease-in-out;
         padding: 20px;
     }
@@ -702,4 +730,3 @@ hr.solid {
     flex: 1 1 calc(33.33% - 20px); /* Default for 3 columns * 
     box-sizing: border-box;
 }*/
-
