@@ -262,10 +262,21 @@ document.addEventListener("DOMContentLoaded", function () {
         // Use Clipboard API to copy HTML content while preserving links
         if (navigator.clipboard) {
             navigator.clipboard.writeText(tempElement.innerText).then(() => {
-                alert("Ad content copied!");
+                showToast("Ad Content Copied!");
             }).catch(err => {
                 console.error("Failed to copy:", err);
             });
+        }
+        
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast-notification';
+            toast.innerText = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000); // Toast disappears after 3 seconds
         }
     });
 
@@ -395,8 +406,6 @@ if ("serviceWorker" in navigator) {
             });
     });
 }
-
-
 
 
 
