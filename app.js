@@ -1,4 +1,4 @@
-///-----------------Reload Stream function-------------------
+//-----------------Reload Stream function-------------------
 document.addEventListener("DOMContentLoaded", function () {
     const refreshButton = document.querySelector(".refresh i");
 
@@ -182,7 +182,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentIndex = 0;
     let startX = 0;
     let endX = 0;
-    let autoSlide = setInterval(nextAd, 10000); // Auto-change every 10 seconds
+    let autoSlide = setInterval(nextAd, 12000); // Auto-change every 10 seconds
 
     // Clear dots before creating new ones (fix duplicate dots issue)
     dotsContainer.innerHTML = "";
@@ -195,7 +195,7 @@ document.addEventListener("DOMContentLoaded", function () {
         dot.addEventListener("click", () => {
             clearInterval(autoSlide);
             showAd(index);
-            autoSlide = setInterval(nextAd, 10000); // Reset timer
+            autoSlide = setInterval(nextAd, 12000); // Reset timer
         });
         dotsContainer.appendChild(dot);
     });
@@ -235,11 +235,11 @@ document.addEventListener("DOMContentLoaded", function () {
         if (startX - endX > 50) {
             clearInterval(autoSlide);
             nextAd(); // Swipe Left → Next Ad
-            autoSlide = setInterval(nextAd, 10000);
+            autoSlide = setInterval(nextAd, 12000);
         } else if (endX - startX > 50) {
             clearInterval(autoSlide);
             prevAd(); // Swipe Right → Previous Ad
-            autoSlide = setInterval(nextAd, 10000);
+            autoSlide = setInterval(nextAd, 12000);
         }
     });
 
@@ -395,3 +395,13 @@ if ("serviceWorker" in navigator) {
             });
     });
 }
+
+
+
+
+
+
+
+
+
+
